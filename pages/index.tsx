@@ -96,16 +96,16 @@ export default function Home() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-2 sm:flex">
             <a
+              href="/learn"
+              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+            >
+              Learn
+            </a>
+            <a
               href="#about"
               className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
             >
               About
-            </a>
-            <a
-              href="#tools"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
-              Tools
             </a>
             <a
               href="#contact"
@@ -135,10 +135,7 @@ export default function Home() {
       {/* Drawer */}
       {open ? (
         <div className="fixed inset-0 z-40">
-          <div
-            className="absolute inset-0 bg-black/55"
-            onClick={() => setOpen(false)}
-          />
+          <div className="absolute inset-0 bg-black/55" onClick={() => setOpen(false)} />
           <aside className="absolute right-0 top-0 h-full w-[82%] max-w-sm border-l border-white/10 bg-slate-950/90 p-4 backdrop-blur">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -153,8 +150,8 @@ export default function Home() {
             </div>
 
             <div className="mt-4 space-y-3">
+              <DrawerLink href="/learn" onClick={() => setOpen(false)}>LEARN</DrawerLink>
               <DrawerLink href="#about" onClick={() => setOpen(false)}>ABOUT</DrawerLink>
-              <DrawerLink href="#tools" onClick={() => setOpen(false)}>TOOLS</DrawerLink>
               <DrawerLink href="#contact" onClick={() => setOpen(false)}>CONTACT</DrawerLink>
 
               <a
@@ -204,16 +201,16 @@ export default function Home() {
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <a
-              href="#about"
+              href="/learn"
               className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
             >
-              SEE MY PROFILE
+              LEARN ASTRONOMY
             </a>
             <a
-              href={`mailto:${profile.contact.email}`}
+              href="#about"
               className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-bold text-white/90 shadow-soft transition hover:bg-white/10 active:scale-[0.98]"
             >
-              EMAIL ME
+              SEE MY PROFILE
             </a>
           </div>
         </div>
@@ -256,19 +253,6 @@ export default function Home() {
             </div>
           </div>
         </Card>
-
-        {/* Tools */}
-        <div id="tools" className="scroll-mt-24">
-          <Card title="TOOLS">
-            <div className="text-sm text-white/70">
-              •TIKTOK TOOL PLACEHOLDER
-              <br />
-              •I CAN ADD A LEGAL LINK PREVIEW TOOL
-              <br />
-              •I CANNOT BUILD A DIRECT VIDEO OR MUSIC DOWNLOADER
-            </div>
-          </Card>
-        </div>
 
         {/* Contact */}
         <div id="contact" className="scroll-mt-24">
