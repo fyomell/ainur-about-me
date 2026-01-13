@@ -31,19 +31,22 @@ export default function MusicPlayer() {
   const current = useMemo(() => tracks[idx] ?? tracks[0], [tracks, idx]);
 
   useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.pause();
+    const a = audioRef.current;
+    if (!a) return;
+    a.pause();
     setPlaying(false);
-    if (current?.url) audioRef.current.src = current.url;
+    if (current?.url) a.src = current.url;
   }, [current?.url]);
 
   const toggle = async () => {
     const a = audioRef.current;
     if (!a) return;
+
     if (!current?.url) {
       setOpen(true);
       return;
     }
+
     if (playing) {
       a.pause();
       setPlaying(false);
@@ -62,7 +65,14 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <audio ref={(el) => (audioRef.current = el)} preload="none" />
+      {/* FIX: ref callback MUST return void */}
+      <audio
+        ref={(el) => {
+          audioRef.current = el;
+        }}
+        preload="none"
+      />
+
       <button
         onClick={() => setOpen(true)}
         className="fixed bottom-5 right-5 z-40 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-black text-white/90 shadow-soft backdrop-blur hover:bg-white/15 active:scale-[0.98]"
@@ -87,6 +97,7 @@ export default function MusicPlayer() {
             <div className="mt-4 rounded-3xl border border-white/10 bg-white/5 p-4">
               <div className="text-xs font-extrabold tracking-widest text-white/60">NOW PLAYING</div>
               <div className="mt-2 text-lg font-black">{current?.title || "NO TRACK"}</div>
+
               <div className="mt-3 flex gap-2">
                 <button
                   onClick={prev}
@@ -107,13 +118,13 @@ export default function MusicPlayer() {
                   NEXT
                 </button>
               </div>
-              <div className="mt-3 text-xs text-white/60">
-                •KAMU BISA TAMBAH TRACK DI /admin •PAKE URL MP3
-              </div>
+
+              <div className="mt-3 text-xs text-white/60">•TAMBAH TRACK DI /admin •PAKE URL MP3</div>
             </div>
 
             <div className="mt-4 rounded-3xl border border-white/10 bg-white/5 p-4">
               <div className="text-xs font-extrabold tracking-widest text-white/60">PLAYLIST</div>
+
               <div className="mt-3 space-y-2">
                 {tracks.map((t, i) => (
                   <button
