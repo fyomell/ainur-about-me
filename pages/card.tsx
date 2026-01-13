@@ -35,7 +35,6 @@ export default function CreateCard() {
       { label: "BELAJAR", href: "/learn" },
       { label: "CREATE CARD", href: "/card" },
       { label: "CONTACT", href: "/#contact" },
-      { label: "ADMIN MUSIC", href: "/admin" },
     ],
     []
   );

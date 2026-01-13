@@ -5,6 +5,7 @@ import MusicPlayer from "@/components/MusicPlayer";
 import { Drawer, MenuButton, type DrawerItem } from "@/components/Drawer";
 import { profile } from "@/lib/profile";
 import { pickQuote } from "@/lib/quotes";
+import { LANGS, getText, type LangCode } from "@/lib/i18n";
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -32,20 +33,30 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [quote, setQuote] = useState(pickQuote());
 
+  const [lang, setLang] = useState<LangCode>("id");
+  useEffect(() => {
+    const saved = localStorage.getItem("lang") as LangCode | null;
+    if (saved) setLang(saved);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("lang", lang);
+  }, [lang]);
+
   useEffect(() => {
     const t = setInterval(() => setQuote(pickQuote()), 9000);
     return () => clearInterval(t);
   }, []);
 
+  const t = useMemo(() => getText(lang), [lang]);
+
   const items: DrawerItem[] = useMemo(
     () => [
       { label: "HOME", href: "/" },
-      { label: "BELAJAR", href: "/learn" },
-      { label: "CREATE CARD", href: "/card" },
-      { label: "CONTACT", href: "/#contact" },
-      { label: "ADMIN MUSIC", href: "/admin" },
+      { label: t.belajar.toUpperCase(), href: "/learn" },
+      { label: t.createCard.toUpperCase(), href: "/card" },
+      { label: t.contact.toUpperCase(), href: "/#contact" },
     ],
-    []
+    [t]
   );
 
   const websiteUrl = profile.contact.website.startsWith("http")
@@ -65,18 +76,41 @@ export default function Home() {
           </div>
 
           <div className="hidden items-center gap-2 sm:flex">
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value as LangCode)}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-bold text-white/80 outline-none hover:bg-white/10"
+            >
+              {LANGS.map((l) => (
+                <option key={l.code} value={l.code} className="text-slate-950">
+                  {l.label}
+                </option>
+              ))}
+            </select>
+
             <Link href="/learn" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
-              Belajar
+              {t.belajar}
             </Link>
             <Link href="/card" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
-              Create Card
+              {t.createCard}
             </Link>
             <a href="#contact" className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]">
-              CONTACT ME
+              {t.contact.toUpperCase()}
             </a>
           </div>
 
-          <div className="sm:hidden">
+          <div className="sm:hidden flex items-center gap-2">
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value as LangCode)}
+              className="rounded-xl border border-white/10 bg-white/5 px-2 py-2 text-xs font-bold text-white/80 outline-none hover:bg-white/10"
+            >
+              {LANGS.map((l) => (
+                <option key={l.code} value={l.code} className="text-slate-950">
+                  {l.label}
+                </option>
+              ))}
+            </select>
             <MenuButton onClick={() => setOpen(true)} />
           </div>
         </div>
@@ -89,11 +123,10 @@ export default function Home() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-3xl font-black tracking-tight md:text-4xl">{profile.name}</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
-                SPACE VIBES • CLEAN UI • BULLET FORMAT • FAST CONTACT
-              </p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">{t.tagline}</p>
+
               <div className="mt-3 rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3 text-sm font-bold text-white/80">
-                {quote}
+                •{t.quoteLabel} • {quote.replace(/^•/,"")}
               </div>
             </div>
             <img src="/rofik-logo.svg" alt="ROFIK" className="h-10 w-auto opacity-90" />
@@ -101,10 +134,10 @@ export default function Home() {
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link href="/learn" className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]">
-              BELAJAR ASTRONOMI
+              {t.belajar.toUpperCase()}
             </Link>
             <Link href="/card" className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-bold text-white/90 shadow-soft transition hover:bg-white/10 active:scale-[0.98]">
-              CREATE CARD ME
+              {t.createCard.toUpperCase()}
             </Link>
           </div>
         </div>

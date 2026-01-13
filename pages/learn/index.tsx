@@ -15,7 +15,6 @@ export default function BelajarHome() {
       { label: "BAB 3 • BLACK HOLE", href: "/learn/black-hole/1" },
       { label: "CREATE CARD", href: "/card" },
       { label: "CONTACT", href: "/#contact" },
-      { label: "ADMIN MUSIC", href: "/admin" },
     ],
     []
   );
