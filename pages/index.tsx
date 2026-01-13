@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import CopyButton from "@/components/CopyButton";
 import { profile } from "@/lib/profile";
 
@@ -54,14 +55,26 @@ function DrawerLink({
   children: React.ReactNode;
   onClick: () => void;
 }) {
+  if (href.startsWith("#")) {
+    return (
+      <a
+        href={href}
+        onClick={onClick}
+        className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/85 hover:bg-white/10"
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <a
+    <Link
       href={href}
       onClick={onClick}
       className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/85 hover:bg-white/10"
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
@@ -81,10 +94,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* Header */}
       <header className="sticky top-0 z-30 border-b border-white/10 bg-slate-950/55 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
-          {/* Left */}
           <div className="flex min-w-0 flex-1 items-center gap-3">
             <img src="/rofik-logo.svg" alt="ROFIK" className="h-7 w-auto shrink-0 sm:h-8" />
             <div className="min-w-0 leading-tight">
@@ -93,20 +104,35 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-2 sm:flex">
-            <a href="/learn" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
+            <Link
+              href="/learn"
+              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+            >
               Learn
-            </a>
-            <a href="#about" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
+            </Link>
+
+            <a
+              href="#about"
+              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+            >
               About
             </a>
-            <a href="#tools" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
+
+            <a
+              href="#tools"
+              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+            >
               Tools
             </a>
-            <a href="#contact" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
+
+            <a
+              href="#contact"
+              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+            >
               Contact
             </a>
+
             <a
               href="#contact"
               className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
@@ -115,18 +141,21 @@ export default function Home() {
             </a>
           </nav>
 
-          {/* Mobile button */}
           <div className="sm:hidden">
             <IconButton onClick={() => setOpen(true)} label="Open menu">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path
+                  d="M4 7h16M4 12h16M4 17h16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </IconButton>
           </div>
         </div>
       </header>
 
-      {/* Drawer */}
       {open ? (
         <div className="fixed inset-0 z-40">
           <div className="absolute inset-0 bg-black/55" onClick={() => setOpen(false)} />
@@ -138,16 +167,29 @@ export default function Home() {
               </div>
               <IconButton onClick={() => setOpen(false)} label="Close menu">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </IconButton>
             </div>
 
             <div className="mt-4 space-y-3">
-              <DrawerLink href="/learn" onClick={() => setOpen(false)}>LEARN</DrawerLink>
-              <DrawerLink href="#about" onClick={() => setOpen(false)}>ABOUT</DrawerLink>
-              <DrawerLink href="#tools" onClick={() => setOpen(false)}>TOOLS</DrawerLink>
-              <DrawerLink href="#contact" onClick={() => setOpen(false)}>CONTACT</DrawerLink>
+              <DrawerLink href="/learn" onClick={() => setOpen(false)}>
+                LEARN
+              </DrawerLink>
+              <DrawerLink href="#about" onClick={() => setOpen(false)}>
+                ABOUT
+              </DrawerLink>
+              <DrawerLink href="#tools" onClick={() => setOpen(false)}>
+                TOOLS
+              </DrawerLink>
+              <DrawerLink href="#contact" onClick={() => setOpen(false)}>
+                CONTACT
+              </DrawerLink>
 
               <a
                 href="#contact"
@@ -165,7 +207,6 @@ export default function Home() {
         </div>
       ) : null}
 
-      {/* Hero */}
       <section className="mx-auto max-w-5xl px-4 pb-10 pt-10">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -179,12 +220,13 @@ export default function Home() {
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <a
+            <Link
               href="/learn"
               className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
             >
               LEARN ASTRONOMY
-            </a>
+            </Link>
+
             <a
               href="#about"
               className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-bold text-white/90 shadow-soft transition hover:bg-white/10 active:scale-[0.98]"
@@ -195,7 +237,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About */}
       <section className="mx-auto max-w-5xl space-y-6 px-4 pb-14" id="about">
         <div className="grid gap-6 md:grid-cols-2">
           <Card title="SUPPORTERS">
@@ -233,7 +274,6 @@ export default function Home() {
           </div>
         </Card>
 
-        {/* Tools */}
         <div id="tools" className="scroll-mt-24">
           <Card title="TOOLS">
             <div className="text-sm text-white/70">
@@ -244,7 +284,6 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Contact */}
         <div id="contact" className="scroll-mt-24">
           <Card title="CONTACT">
             <div className="grid gap-4 md:grid-cols-3">

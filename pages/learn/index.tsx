@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function LearnHome() {
   return (
     <main className="min-h-screen">
@@ -11,12 +13,12 @@ export default function LearnHome() {
             </div>
           </div>
 
-          <a
+          <Link
             href="/"
             className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white/85 hover:bg-white/10"
           >
             HOME
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -25,7 +27,7 @@ export default function LearnHome() {
           <h1 className="text-3xl font-black tracking-tight">LEARNING MENU</h1>
           <p className="mt-2 text-sm text-white/70">•CHAPTER 1 AVAILABLE</p>
 
-          <a
+          <Link
             href="/learn/solar-system/1"
             className="mt-6 block rounded-3xl border border-white/10 bg-slate-950/30 p-5 shadow-soft hover:bg-slate-950/40"
           >
@@ -42,7 +44,7 @@ export default function LearnHome() {
             <div className="mt-4 inline-flex rounded-2xl bg-sky-500/90 px-4 py-2 text-sm font-black text-slate-950">
               START
             </div>
-          </a>
+          </Link>
         </div>
       </section>
     </main>
