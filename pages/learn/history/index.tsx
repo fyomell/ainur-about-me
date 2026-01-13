@@ -1,61 +1,45 @@
 import Head from "next/head";
 import Link from "next/link";
+import { HISTORY_CHAPTERS } from "@/lib/learn/chapters";
+
+function Card({ title, desc, href }: { title: string; desc: string; href: string }) {
+  return (
+    <Link href={href} className="block rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur hover:bg-white/10">
+      <div className="text-xs font-extrabold tracking-widest text-white/60">{title}</div>
+      <div className="mt-2 text-lg font-black">{desc}</div>
+      <div className="mt-3 text-sm font-bold text-sky-300">•OPEN</div>
+    </Link>
+  );
+}
 
 export default function HistoryIndex() {
   return (
     <>
-      <Head>
-        <title>Belajar • Sejarah Dunia</title>
-      </Head>
+      <Head><title>Belajar • Sejarah Dunia</title></Head>
 
-      <main className="mx-auto max-w-5xl px-4 py-10">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur">
-          <div className="text-xs font-extrabold tracking-widest text-white/60">
-            BELAJAR
+      <main className="min-h-screen">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-slate-950/55 backdrop-blur">
+          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+            <div className="text-sm font-extrabold">SEJARAH DUNIA</div>
+            <div className="flex gap-2">
+              <Link href="/learn" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-black hover:bg-white/10">KEMBALI</Link>
+              <Link href="/" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-black hover:bg-white/10">HOME</Link>
+            </div>
           </div>
-          <h1 className="mt-3 text-3xl font-black tracking-tight text-white">
-            Sejarah Dunia
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
-            Materi sejarah dunia dibuat model halaman
-            Jadi enak dibaca pelan pelan
-          </p>
+        </header>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <Link
-              href="/learn/history/british-empire/1"
-              className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-soft transition hover:bg-white/10 active:scale-[0.99]"
-            >
-              <div className="text-xs font-extrabold tracking-widest text-white/60">
-                BAB 1
-              </div>
-              <div className="mt-2 text-2xl font-black text-white">
-                Kekaisaran Britania Raya
-              </div>
-              <div className="mt-2 text-sm text-white/70">
-                Asal usul • Puncak wilayah • Sistem kolonial • Tokoh • Dampak
-              </div>
-              <div className="mt-4 text-xs font-extrabold tracking-widest text-white/60">
-                MASUK HALAMAN 1
-              </div>
-            </Link>
-          </div>
+        <section className="mx-auto max-w-5xl px-4 pb-14 pt-8">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur">
+            <div className="text-xs font-extrabold tracking-widest text-white/60">BAB SEJARAH DUNIA</div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/learn"
-              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-black text-white/90 shadow-soft hover:bg-white/10 active:scale-[0.98]"
-            >
-              KEMBALI
-            </Link>
-            <Link
-              href="/"
-              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-black text-white/90 shadow-soft hover:bg-white/10 active:scale-[0.98]"
-            >
-              HOME
-            </Link>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              <Card title="BAB 1" desc="KEKAISARAN BRITANIA RAYA" href="/learn/history/british-empire/1" />
+              {HISTORY_CHAPTERS.map((c, i) => (
+                <Card key={c.key} title={`BAB ${i + 2}`} desc={c.title} href={`/learn/history/${c.key}/1`} />
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       </main>
     </>
   );
