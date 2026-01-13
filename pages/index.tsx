@@ -95,22 +95,16 @@ export default function Home() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-2 sm:flex">
-            <a
-              href="/learn"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
+            <a href="/learn" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
               Learn
             </a>
-            <a
-              href="#about"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
+            <a href="#about" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
               About
             </a>
-            <a
-              href="#contact"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
+            <a href="#tools" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
+              Tools
+            </a>
+            <a href="#contact" className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white">
               Contact
             </a>
             <a
@@ -152,6 +146,7 @@ export default function Home() {
             <div className="mt-4 space-y-3">
               <DrawerLink href="/learn" onClick={() => setOpen(false)}>LEARN</DrawerLink>
               <DrawerLink href="#about" onClick={() => setOpen(false)}>ABOUT</DrawerLink>
+              <DrawerLink href="#tools" onClick={() => setOpen(false)}>TOOLS</DrawerLink>
               <DrawerLink href="#contact" onClick={() => setOpen(false)}>CONTACT</DrawerLink>
 
               <a
@@ -180,23 +175,7 @@ export default function Home() {
                 SPACE VIBES • CLEAN UI • BULLET FORMAT • FAST CONTACT
               </p>
             </div>
-
             <img src="/rofik-logo.svg" alt="ROFIK" className="h-10 w-auto opacity-90" />
-          </div>
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
-              <div className="text-xs font-extrabold tracking-widest text-white/60">CLASS</div>
-              <div className="mt-2 text-base font-bold">{profile.class}</div>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
-              <div className="text-xs font-extrabold tracking-widest text-white/60">AGE</div>
-              <div className="mt-2 text-base font-bold">{profile.age}</div>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
-              <div className="text-xs font-extrabold tracking-widest text-white/60">WEBSITE</div>
-              <div className="mt-2 text-base font-bold">{profile.contact.website}</div>
-            </div>
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -216,7 +195,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Content */}
+      {/* About */}
       <section className="mx-auto max-w-5xl space-y-6 px-4 pb-14" id="about">
         <div className="grid gap-6 md:grid-cols-2">
           <Card title="SUPPORTERS">
@@ -253,6 +232,17 @@ export default function Home() {
             </div>
           </div>
         </Card>
+
+        {/* Tools */}
+        <div id="tools" className="scroll-mt-24">
+          <Card title="TOOLS">
+            <div className="text-sm text-white/70">
+              •COMING SOON
+              <br />
+              •NEXT TOOL: ASTRONOMY QUIZ
+            </div>
+          </Card>
+        </div>
 
         {/* Contact */}
         <div id="contact" className="scroll-mt-24">
@@ -303,20 +293,6 @@ export default function Home() {
                   <CopyButton value={websiteUrl} label="Copy" />
                 </div>
               </div>
-            </div>
-
-            <div className="mt-6 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
-              <div className="text-sm text-white/60">Built with Next.js • TypeScript • Tailwind CSS</div>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="rounded-xl px-4 py-2 text-sm font-semibold text-white/80 hover:bg-white/5"
-              >
-                Back to top ↑
-              </a>
             </div>
           </Card>
         </div>
