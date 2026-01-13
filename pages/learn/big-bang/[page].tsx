@@ -1,3 +1,4 @@
+import { makeLessonImage } from "@/lib/learn/makeLessonImage";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import { BIG_BANG_TOTAL, getBigBangPage, type LearnPage } from "@/lib/learn/bigBang";

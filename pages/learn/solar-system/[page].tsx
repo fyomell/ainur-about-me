@@ -1,3 +1,4 @@
+import { makeLessonImage } from "@/lib/learn/makeLessonImage";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import { SOLAR_SYSTEM_TOTAL, getSolarSystemPage, type LearnPage } from "@/lib/learn/solarSystem";
