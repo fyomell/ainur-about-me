@@ -4,7 +4,7 @@ import { profile } from "@/lib/profile";
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft">
+    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur">
       <div className="text-xs font-extrabold tracking-widest text-white/60">{title}</div>
       <div className="mt-4">{children}</div>
     </div>
@@ -31,16 +31,15 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-120px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-sky-500/15 blur-3xl" />
-        <div className="absolute bottom-[-160px] right-[-120px] h-[520px] w-[520px] rounded-full bg-fuchsia-500/10 blur-3xl" />
-      </div>
-
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+      {/* Header */}
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/55 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <div className="leading-tight">
-            <div className="text-sm font-extrabold tracking-wide">{profile.name}</div>
-            <div className="text-xs text-white/60">ABOUT ME</div>
+          <div className="flex items-center gap-3">
+            <img src="/rofik-logo.svg" alt="ROFIK" className="h-9 w-auto" />
+            <div className="leading-tight">
+              <div className="text-sm font-extrabold tracking-wide">{profile.name}</div>
+              <div className="text-xs text-white/60">ASTRONOMY THEME</div>
+            </div>
           </div>
 
           <nav className="flex items-center gap-2">
@@ -55,12 +54,21 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Hero */}
       <section className="mx-auto max-w-5xl px-4 pb-10 pt-10">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft">
-          <h1 className="text-3xl font-black tracking-tight md:text-4xl">{profile.name}</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
-            NAME • CLASS • AGE • SUPPORTERS • SUBJECTS • GOALS • PROJECTS • ACHIEVEMENTS
-          </p>
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-3xl font-black tracking-tight md:text-4xl">{profile.name}</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
+                SPACE VIBES • CLEAN UI • BULLET FORMAT • FAST CONTACT BUTTONS
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <img src="/rofik-logo.svg" alt="ROFIK" className="h-10 w-auto opacity-90" />
+            </div>
+          </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
             <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
@@ -91,6 +99,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Content */}
       <section className="mx-auto max-w-5xl space-y-6 px-4 pb-14" id="about">
         <div className="grid gap-6 md:grid-cols-2">
           <Card title="SUPPORTERS">
