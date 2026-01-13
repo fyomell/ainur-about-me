@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520">
+  <defs>
+    <radialGradient id="bg" cx="25%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#0b1633"/>
+      <stop offset="55%" stop-color="#050a18"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity=".9"/>
+      <stop offset="50%" stop-color="#34d399" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity=".85"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .t{font:800 18px system-ui,Segoe UI,Arial;fill:rgba(255,255,255,.85)}
+      .s{font:700 13px system-ui,Segoe UI,Arial;fill:rgba(255,255,255,.65)}
+      .p{fill:rgba(255,255,255,.12)}
+    </style>
+  </defs>
+
+  <rect width="1200" height="520" fill="url(#bg)"/>
+
+  <g opacity=".75">
+    <circle cx="120" cy="90" r="1.4" fill="#fff"/>
+    <circle cx="240" cy="140" r="1.1" fill="#fff"/>
+    <circle cx="380" cy="60" r="1.2" fill="#fff"/>
+    <circle cx="620" cy="110" r="1.2" fill="#fff"/>
+    <circle cx="820" cy="70" r="1.1" fill="#fff"/>
+    <circle cx="1040" cy="130" r="1.3" fill="#fff"/>
+    <circle cx="980" cy="320" r="1.2" fill="#fff"/>
+    <circle cx="560" cy="400" r="1.2" fill="#fff"/>
+    <circle cx="260" cy="370" r="1.0" fill="#fff"/>
+  </g>
+
+  <text x="80" y="70" class="t">BIG BANG TIMELINE (SIMPLE)</text>
+  <text x="80" y="96" class="s">HOT • DENSE • EXPANDING UNIVERSE</text>
+
+  <g transform="translate(80 160)">
+    <rect x="0" y="0" width="1040" height="10" rx="6" fill="url(#line)" filter="url(#glow)"/>
+    <circle cx="10" cy="5" r="10" fill="#60a5fa" filter="url(#glow)"/>
+    <circle cx="240" cy="5" r="8" fill="#34d399" filter="url(#glow)"/>
+    <circle cx="520" cy="5" r="8" fill="#fbbf24" filter="url(#glow)"/>
+    <circle cx="820" cy="5" r="8" fill="#a78bfa" filter="url(#glow)"/>
+    <circle cx="1030" cy="5" r="10" fill="#22c55e" filter="url(#glow)"/>
+
+    <text x="0" y="44" class="s">EARLY</text>
+    <text x="210" y="44" class="s">CMB</text>
+    <text x="470" y="44" class="s">FIRST STARS</text>
+    <text x="780" y="44" class="s">GALAXIES</text>
+    <text x="980" y="44" class="s">TODAY</text>
+
+    <rect x="0" y="70" width="1040" height="250" rx="22" class="p"/>
+    <text x="28" y="110" class="s">•EXPANSION</text>
+    <text x="28" y="140" class="s">•COOLING</text>
+    <text x="28" y="170" class="s">•STRUCTURE FORMATION</text>
+    <text x="28" y="200" class="s">•EVIDENCE: REDSHIFT •CMB •ELEMENTS</text>
+  </g>
+</svg>

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import CopyButton from "@/components/CopyButton";
 import { profile } from "@/lib/profile";
+import { LANGS, getStrings, type LangCode } from "@/lib/i18n";
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -80,6 +81,16 @@ function DrawerLink({
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [lang, setLang] = useState<LangCode>("id");
+
+  useEffect(() => {
+    const saved = (typeof window !== "undefined" && localStorage.getItem("lang")) as LangCode | null;
+    if (saved) setLang(saved);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") localStorage.setItem("lang", lang);
+  }, [lang]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -87,6 +98,8 @@ export default function Home() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const s = useMemo(() => getStrings(lang), [lang]);
 
   const websiteUrl = profile.contact.website.startsWith("http")
     ? profile.contact.website
@@ -104,52 +117,61 @@ export default function Home() {
             </div>
           </div>
 
-          <nav className="hidden items-center gap-2 sm:flex">
-            <Link
-              href="/learn"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+          <div className="hidden items-center gap-2 sm:flex">
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value as LangCode)}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-bold text-white/80 outline-none hover:bg-white/10"
             >
-              Learn
-            </Link>
+              {LANGS.map((l) => (
+                <option key={l.code} value={l.code} className="text-slate-950">
+                  {l.label}
+                </option>
+              ))}
+            </select>
 
-            <a
-              href="#about"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
-              About
-            </a>
+            <nav className="flex items-center gap-2">
+              <Link
+                href="/learn"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+              >
+                {s.menuBelajar}
+              </Link>
 
-            <a
-              href="#tools"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
-              Tools
-            </a>
+              <a
+                href="#about"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+              >
+                {s.menuAbout}
+              </a>
 
-            <a
-              href="#contact"
-              className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
-            >
-              Contact
-            </a>
+              <a
+                href="#tools"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+              >
+                {s.menuTools}
+              </a>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
-            >
-              CONTACT ME
-            </a>
-          </nav>
+              <a
+                href="#contact"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-white/70 hover:bg-white/5 hover:text-white"
+              >
+                {s.menuContact}
+              </a>
+
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
+              >
+                {s.btnContactMe}
+              </a>
+            </nav>
+          </div>
 
           <div className="sm:hidden">
             <IconButton onClick={() => setOpen(true)} label="Open menu">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 7h16M4 12h16M4 17h16"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </IconButton>
           </div>
@@ -167,36 +189,39 @@ export default function Home() {
               </div>
               <IconButton onClick={() => setOpen(false)} label="Close menu">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M6 6l12 12M18 6L6 18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </IconButton>
             </div>
 
             <div className="mt-4 space-y-3">
-              <DrawerLink href="/learn" onClick={() => setOpen(false)}>
-                LEARN
+              <select
+                value={lang}
+                onChange={(e) => setLang(e.target.value as LangCode)}
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/80 outline-none hover:bg-white/10"
+              >
+                {LANGS.map((l) => (
+                  <option key={l.code} value={l.code} className="text-slate-950">
+                    {l.label}
+                  </option>
+                ))}
+              </select>
+
+              <DrawerLink href="#top" onClick={() => { setOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                {s.menuHome}
               </DrawerLink>
-              <DrawerLink href="#about" onClick={() => setOpen(false)}>
-                ABOUT
-              </DrawerLink>
-              <DrawerLink href="#tools" onClick={() => setOpen(false)}>
-                TOOLS
-              </DrawerLink>
-              <DrawerLink href="#contact" onClick={() => setOpen(false)}>
-                CONTACT
-              </DrawerLink>
+
+              <DrawerLink href="/learn" onClick={() => setOpen(false)}>{s.menuBelajar}</DrawerLink>
+              <DrawerLink href="#about" onClick={() => setOpen(false)}>{s.menuAbout}</DrawerLink>
+              <DrawerLink href="#tools" onClick={() => setOpen(false)}>{s.menuTools}</DrawerLink>
+              <DrawerLink href="#contact" onClick={() => setOpen(false)}>{s.menuContact}</DrawerLink>
 
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
                 className="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-3 text-sm font-black text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
               >
-                CONTACT ME
+                {s.btnContactMe}
               </a>
             </div>
 
@@ -212,9 +237,8 @@ export default function Home() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-3xl font-black tracking-tight md:text-4xl">{profile.name}</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
-                SPACE VIBES • CLEAN UI • BULLET FORMAT • FAST CONTACT
-              </p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">{s.heroTagline}</p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/55">{s.heroSubtitle}</p>
             </div>
             <img src="/rofik-logo.svg" alt="ROFIK" className="h-10 w-auto opacity-90" />
           </div>
@@ -224,14 +248,14 @@ export default function Home() {
               href="/learn"
               className="inline-flex items-center justify-center rounded-2xl bg-sky-500/90 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-soft transition hover:bg-sky-400 active:scale-[0.98]"
             >
-              LEARN ASTRONOMY
+              {s.btnBelajar}
             </Link>
 
             <a
               href="#about"
               className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-bold text-white/90 shadow-soft transition hover:bg-white/10 active:scale-[0.98]"
             >
-              SEE MY PROFILE
+              {s.btnSeeProfile}
             </a>
           </div>
         </div>
@@ -239,34 +263,34 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl space-y-6 px-4 pb-14" id="about">
         <div className="grid gap-6 md:grid-cols-2">
-          <Card title="SUPPORTERS">
+          <Card title={s.supporters}>
             <BulletList items={profile.supporters} />
           </Card>
 
-          <Card title="FAVORITE SUBJECTS">
+          <Card title={s.favSubjects}>
             <BulletList items={profile.favoriteSubjects} />
           </Card>
 
-          <Card title="MY GOALS">
+          <Card title={s.goals}>
             <BulletList items={profile.goals} />
           </Card>
 
-          <Card title="PROJECTS">
+          <Card title={s.projects}>
             <BulletList items={profile.projects} />
           </Card>
         </div>
 
-        <Card title="ACHIEVEMENTS">
+        <Card title={s.achievements}>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
-              <div className="text-xs font-extrabold tracking-widest text-white/60">COURSES</div>
+              <div className="text-xs font-extrabold tracking-widest text-white/60">{s.courses}</div>
               <div className="mt-3">
                 <BulletList items={profile.achievements.courses} />
               </div>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
-              <div className="text-xs font-extrabold tracking-widest text-white/60">SCHOOL RANKS</div>
+              <div className="text-xs font-extrabold tracking-widest text-white/60">{s.schoolRanks}</div>
               <div className="mt-3">
                 <BulletList items={profile.achievements.schoolRanks} />
               </div>
@@ -275,17 +299,13 @@ export default function Home() {
         </Card>
 
         <div id="tools" className="scroll-mt-24">
-          <Card title="TOOLS">
-            <div className="text-sm text-white/70">
-              •COMING SOON
-              <br />
-              •NEXT TOOL: ASTRONOMY QUIZ
-            </div>
+          <Card title={s.menuTools}>
+            <div className="whitespace-pre-line text-sm text-white/70">{s.toolsSoon}</div>
           </Card>
         </div>
 
         <div id="contact" className="scroll-mt-24">
-          <Card title="CONTACT">
+          <Card title={s.contact}>
             <div className="grid gap-4 md:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
                 <div className="text-xs font-extrabold tracking-widest text-white/60">TELEGRAM</div>
@@ -297,9 +317,9 @@ export default function Home() {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/15"
                   >
-                    Open
+                    {s.open}
                   </a>
-                  <CopyButton value={profile.contact.telegram} label="Copy" />
+                  <CopyButton value={profile.contact.telegram} label={s.copy} />
                 </div>
               </div>
 
@@ -311,9 +331,9 @@ export default function Home() {
                     href={`mailto:${profile.contact.email}`}
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/15"
                   >
-                    Send
+                    {s.send}
                   </a>
-                  <CopyButton value={profile.contact.email} label="Copy" />
+                  <CopyButton value={profile.contact.email} label={s.copy} />
                 </div>
               </div>
 
@@ -327,9 +347,9 @@ export default function Home() {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/15"
                   >
-                    Open
+                    {s.open}
                   </a>
-                  <CopyButton value={websiteUrl} label="Copy" />
+                  <CopyButton value={websiteUrl} label={s.copy} />
                 </div>
               </div>
             </div>
