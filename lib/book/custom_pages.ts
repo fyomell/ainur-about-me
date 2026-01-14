@@ -1,12 +1,19 @@
-/**
- * Kamu edit di sini aja.
- * Tinggal copy blok halaman dan tambah sebanyak yang kamu mau.
- */
+export type ExtraPage = {
+  title: string;
+  imageSeed: string;
+  mode: "space" | "history";
+  intro: string[];
+  sections: { heading: string; paragraphs: string[]; bullets?: string[] }[];
+  summaryBullets: string[];
+  keyTerms: string[];
+  quiz: { q: string; a: string }[];
+};
 
-export const SOLAR_SYSTEM_EXTRA = [
+export const SOLAR_SYSTEM_EXTRA: ExtraPage[] = [
   {
     title: "Contoh Halaman Baru 1",
-    seed: "solar-extra-1",
+    imageSeed: "solar-extra-1",
+    mode: "space",
     intro: [
       "Paragraf 1 panjang seperti buku sekolah. Jelasin konsepnya pelan pelan.",
       "Paragraf 2 panjang. Tambahin penjelasan, contoh, dan hubungan ke materi sebelumnya."
@@ -14,25 +21,16 @@ export const SOLAR_SYSTEM_EXTRA = [
     sections: [
       {
         heading: "Subjudul 1",
-        paragraphs: [
-          "Paragraf penjelasan 1.",
-          "Paragraf penjelasan 2."
-        ],
+        paragraphs: ["Paragraf penjelasan 1.", "Paragraf penjelasan 2."],
         bullets: ["•Poin 1", "•Poin 2", "•Poin 3"]
       },
       {
         heading: "Subjudul 2",
-        paragraphs: [
-          "Paragraf penjelasan 1.",
-          "Paragraf penjelasan 2."
-        ]
+        paragraphs: ["Paragraf penjelasan 1.", "Paragraf penjelasan 2."]
       },
       {
         heading: "Subjudul 3",
-        paragraphs: [
-          "Paragraf penjelasan 1.",
-          "Paragraf penjelasan 2."
-        ]
+        paragraphs: ["Paragraf penjelasan 1.", "Paragraf penjelasan 2."]
       }
     ],
     summaryBullets: ["•Ringkasan 1", "•Ringkasan 2", "•Ringkasan 3"],
@@ -44,10 +42,11 @@ export const SOLAR_SYSTEM_EXTRA = [
   }
 ];
 
-export const BRITISH_EMPIRE_EXTRA = [
+export const BRITISH_EMPIRE_EXTRA: ExtraPage[] = [
   {
     title: "Contoh Halaman Baru 1",
-    seed: "empire-extra-1",
+    imageSeed: "empire-extra-1",
+    mode: "history",
     intro: [
       "Paragraf 1 panjang seperti buku sekolah untuk sejarah dunia.",
       "Paragraf 2 panjang. Jelasin kronologi dan konteks."
@@ -55,25 +54,16 @@ export const BRITISH_EMPIRE_EXTRA = [
     sections: [
       {
         heading: "Latar Belakang",
-        paragraphs: [
-          "Paragraf 1.",
-          "Paragraf 2."
-        ],
+        paragraphs: ["Paragraf 1.", "Paragraf 2."],
         bullets: ["•Poin 1", "•Poin 2", "•Poin 3"]
       },
       {
         heading: "Tokoh dan Kebijakan",
-        paragraphs: [
-          "Paragraf 1.",
-          "Paragraf 2."
-        ]
+        paragraphs: ["Paragraf 1.", "Paragraf 2."]
       },
       {
         heading: "Dampak dan Warisan",
-        paragraphs: [
-          "Paragraf 1.",
-          "Paragraf 2."
-        ]
+        paragraphs: ["Paragraf 1.", "Paragraf 2."]
       }
     ],
     summaryBullets: ["•Ringkasan 1", "•Ringkasan 2", "•Ringkasan 3"],
