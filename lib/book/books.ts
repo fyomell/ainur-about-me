@@ -574,6 +574,6 @@ export const BOOKS: Record<string, Book> = {
   },
 };
 
-export function getBookImage(page: BookPage) {
-  return bookImage(page.imageSeed, page.title, page.mode);
+export function getBookImage(page: BookPage, forceMode?: "space" | "history") {
+  return bookImage(page.imageSeed, page.title, forceMode ?? page.mode);
 }

@@ -5,6 +5,7 @@ import { Book, getBookImage } from "../../lib/book/books";
 export default function BookPageView(props: { book: Book; pageIndex: number; basePath: string; homeLabel?: string }) {
   const { book, pageIndex, basePath } = props;
   const page = book.pages[pageIndex];
+  const mode = book.id.startsWith("history:") ? "history" : "space";
   const total = book.pages.length;
 
   const prev = pageIndex > 0 ? `${basePath}/${pageIndex}` : null;
@@ -48,7 +49,7 @@ export default function BookPageView(props: { book: Book; pageIndex: number; bas
 
           {/* Image */}
           <div className="mt-6 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/40">
-            <img src={getBookImage(page)} alt={page.title} className="h-auto w-full" />
+            <img src={getBookImage(page, mode)} alt={page.title} className="h-auto w-full" />
           </div>
 
           {/* Intro */}
