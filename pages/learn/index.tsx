@@ -69,7 +69,20 @@ export default function LearnHome() {
             </Link>
           </div>
         </div>
-      </main>
+      
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-soft">
+        <div className="text-xs font-extrabold tracking-widest text-white/60">BAB PRIVAT</div>
+        <div className="mt-2 text-lg font-black text-white">TENTANG BUKU</div>
+        <div className="mt-1 text-sm font-black text-white/80">A World Without Islam</div>
+        <div className="mt-2 text-sm leading-relaxed text-white/70">
+          Bab ini butuh jawaban pertanyaan sebelum bisa dibuka.
+        </div>
+        <Link href="/learn/private/1" className="mt-4 inline-flex rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-sm font-black text-white/90 hover:bg-white/15">
+          BUKA BAB PRIVAT
+        </Link>
+      </div>
+
+</main>
     </>
   );
 }
